@@ -7,5 +7,5 @@ function handleButtonClick() {
     const postal = document.getElementById('postalCode').value;
 
     // Populate the result div with the input value
-    document.getElementById('result').textContent = `The following residence has been registered with the CRA: ${addressLine1} ${city}, ${province} ${postal}`;
+    document.getElementById('result').textContent = `The following residence has been registered with the CRA: ${address} ${city}, ${province} ${postal}`;
 }
