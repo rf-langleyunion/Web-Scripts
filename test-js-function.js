@@ -1,8 +1,11 @@
 // JavaScript function to handle the button click
 function handleButtonClick() {
     // Get the value from the text box
-    const inputValue = document.getElementById('textInput').value;
+    const address = document.getElementById('addressLine1').value;
+    const city = document.getElementById('city').value;
+    const province = document.getElementById('province').value;
+    const postal = document.getElementById('postalCode').value;
 
     // Populate the result div with the input value
-    document.getElementById('result').textContent = `You entered: ${inputValue}`;
+    document.getElementById('result').textContent = `The following residence has been registered with the CRA: ${addressLine1} ${city}, ${province} ${postal}`;
 }
