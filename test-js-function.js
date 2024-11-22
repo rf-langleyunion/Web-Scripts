@@ -1,3 +1,4 @@
+// JavaScript function to handle the button click
 function handleButtonClick() {
     // Get the value from the text box
     const inputValue = document.getElementById('textInput').value;
