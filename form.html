@@ -1,0 +1,26 @@
+<div class="form-container">
+    <form id="webForm">
+        <!-- Row for Name and Email -->
+        <div class="form-row">
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
+
+        <!-- Feedback field -->
+        <textarea id="feedback" name="feedback" placeholder="Feedback" required></textarea>
+
+        <!-- Spam protection: honeypot field -->
+        <div class="hidden">
+            <label for="honeypot">Do not fill this field:</label>
+            <input type="text" id="honeypot" name="honeypot">
+        </div>
+
+        <!-- Hidden fields -->
+        <input type="hidden" id="pageTitle" name="pageTitle">
+        <input type="hidden" id="pageURL" name="pageURL">
+        <input type="hidden" id="ipAddress" name="ipAddress">
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
