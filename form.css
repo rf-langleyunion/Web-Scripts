@@ -13,16 +13,17 @@ form {
 }
 .form-row {
     display: flex;
-    justify-content: space-between;
     gap: 10px;
 }
 .form-row input[type="text"],
 .form-row input[type="email"] {
     flex: 1;
+    width: 100%;
 }
 textarea {
     resize: vertical;
     height: 80px;
+    width: 100%;
 }
 button {
     align-self: flex-start;
