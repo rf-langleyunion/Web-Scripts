@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = Object.fromEntries(formData.entries());
 
         // Webhook URL
-        const webhookURL = "https://your-webhook-url.example.com";
+        const webhookURL = "https://hook.eu2.make.com/ufg4ec6lt8vt4eq2egqvjx316yqxn965";
 
         // Send data to webhook
         fetch(webhookURL, {
