@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("JS is working"); // Confirm JS execution
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
     const webhookURL = "https://hook.eu2.make.com/ufg4ec6lt8vt4eq2egqvjx316yqxn965"; // Replace with your webhook URL
 
