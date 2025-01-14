@@ -59,22 +59,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    try {
-        const ipResponse = await fetch("https://api.ipify.org?format=json");
-        if (!ipResponse.ok) {
-            throw new Error(`IP fetch failed with status: ${ipResponse.status}`);
-        }
-        const ipData = await ipResponse.json();
-        console.log("Fetched IP address:", ipData.ip); // Debugging log
+    const ipServices = [
+        "https://api.ipify.org?format=json",
+        "https://ipinfo.io/json",
+        "https://httpbin.org/ip",
+    ];
 
-        const ipField = document.getElementById("ipAddress");
-        if (ipField) {
-            ipField.value = ipData.ip;
-            console.log("IP address set in the hidden field:", ipField.value);
-        } else {
-            console.error("IP address field not found!");
+    for (let service of ipServices) {
+        try {
+            const ipResponse = await fetch(service);
+            if (!ipResponse.ok) {
+                throw new Error(`Service failed: ${service}`);
+            }
+            const ipData = await ipResponse.json();
+            const ipField = document.getElementById("ipAddress");
+            if (ipField) {
+                const ip = ipData.ip || ipData.origin; // Handle different response formats
+                ipField.value = ip;
+                console.log(`IP address fetched from ${service}:`, ip);
+            }
+            break; // Exit loop if IP fetch succeeds
+        } catch (error) {
+            console.warn(`Failed to fetch IP from ${service}:`, error);
         }
-    } catch (error) {
-        console.error("Error fetching IP address:", error);
     }
 });
