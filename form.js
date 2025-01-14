@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const webhookURL = "https://hook.eu2.make.com/ufg4ec6lt8vt4eq2egqvjx316yqxn965"; // Replace with your webhook URL
 
-    // Dynamically load the form
-    const formContainer = document.getElementById('form-container');
+   // Dynamically load the form
+    const formContainer = document.getElementById("form-container");
     try {
-        const response = await fetch('form.html');
+        const response = await fetch("form.html");
         const formHTML = await response.text();
         formContainer.innerHTML = formHTML;
 
