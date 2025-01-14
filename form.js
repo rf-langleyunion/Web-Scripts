@@ -57,3 +57,24 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
+        if (!ipResponse.ok) {
+            throw new Error(`IP fetch failed with status: ${ipResponse.status}`);
+        }
+        const ipData = await ipResponse.json();
+        console.log("Fetched IP address:", ipData.ip); // Debugging log
+
+        const ipField = document.getElementById("ipAddress");
+        if (ipField) {
+            ipField.value = ipData.ip;
+            console.log("IP address set in the hidden field:", ipField.value);
+        } else {
+            console.error("IP address field not found!");
+        }
+    } catch (error) {
+        console.error("Error fetching IP address:", error);
+    }
+});
