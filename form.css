@@ -1,5 +1,5 @@
 .form-container {
-    background-color: #E8CFFF;
+    background-color: #E8CFFF !important;;
     padding: 15px;
     border-radius: 8px;
     max-width: 600px;
@@ -18,7 +18,7 @@ form {
 .form-row input[type="text"],
 .form-row input[type="email"] {
     flex: 1;
-    width: 100%;
+    width: 50%;
 }
 textarea {
     resize: vertical;
