@@ -8,8 +8,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formHTML = await response.text();
         formContainer.innerHTML = formHTML;
 
-        // Once the form is loaded, attach event listeners
+        // Attach the event listener to the dynamically loaded form
         const form = document.getElementById("webForm");
+
+        if (!form) {
+            console.error("Form element not found!");
+            return;
+        }
 
         // Populate hidden fields with page title and URL
         document.getElementById("pageTitle").value = document.title;
@@ -26,7 +31,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Add event listener for form submission
         form.addEventListener("submit", (event) => {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); // Prevent page reload
+            console.log("Form submission intercepted!");
 
             // Basic spam check: honeypot field
             const honeypot = document.getElementById("honeypot").value;
