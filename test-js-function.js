@@ -25,8 +25,7 @@ async function geocodeAddress(address, city, province, postalCode) {
     }
 }
 
-
-function handleButtonClick() {
+async function handleButtonClick() {
     // Get the value from the text box
     const address = document.getElementById('addressLine1').value.trim();
     const city = document.getElementById('city').value.trim();
@@ -39,23 +38,28 @@ function handleButtonClick() {
         return;
     }
 
-    // Populate the result div with the input value, using <br> for new lines
+    // Geocode the address
+    const geoCode = await geocodeAddress(address, city, province, postal);
+
+    // Get the result div
     const resultDiv = document.getElementById('result');
-    const geoCode = geocodeAddress(address, city, province, postal);
 
     // Check if the address is '190 Gladwin' and apply styles if true
     if (address === '190 Gladwin') {
         resultDiv.style.marginTop = '20px';
         resultDiv.style.fontSize = '16px';
         resultDiv.style.color = 'blue';
-        resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: `, ${geoCode};
-
     } else {
         // Reset styles if the address is not '190 Gladwin'
         resultDiv.style.marginTop = '20px';
         resultDiv.style.fontSize = '16px';
         resultDiv.style.color = 'blue';
-        resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: `, ${geoCode};
+    }
 
+    // Display the result
+    if (geoCode) {
+        resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: Latitude: ${geoCode.latitude}, Longitude: ${geoCode.longitude}`;
+    } else {
+        resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: Unable to find coordinates.`;
     }
 }
