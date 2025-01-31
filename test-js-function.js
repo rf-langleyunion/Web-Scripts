@@ -53,9 +53,9 @@ function handleButtonClick() {
     } else {
         // Reset styles if the address is not '190 Gladwin'
         resultDiv.style.marginTop = '20px';
-        resultDiv.style.fontSize = '35px';
-        resultDiv.style.color = 'red';
-        resultDiv.innerHTML = `OH MY GOD RUN`;
+        resultDiv.style.fontSize = '16px';
+        resultDiv.style.color = 'blue';
+        resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: `, ${geoCode};
 
     }
 }
