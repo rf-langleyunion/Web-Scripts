@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById("yui_3_17_2_1_1738968586205_96");
 
     if (button) {
-        button.addEventListener("click", function () {
+        button.addEventListener("submit", function () {
             updateDiv();
         });
     }
