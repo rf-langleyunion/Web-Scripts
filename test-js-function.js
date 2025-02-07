@@ -1,4 +1,29 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the form and the button
+    const form = document.getElementById('address');
+    const submitButton = document.querySelector('button[form="address"]');
+
+    // Add an event listener to the form's submit event
+    form.addEventListener('submit', function(event) {
+        // Prevent the form from submitting the traditional way
+        event.preventDefault();
+
+        // Get the riding-details div
+        const ridingDetails = document.getElementById('riding-details');
+
+        // Clear the existing content of the div
+        ridingDetails.innerHTML = '';
+
+        // Create a new <p> element
+        const newParagraph = document.createElement('p');
+        newParagraph.textContent = "It's alive!";
+
+        // Append the new <p> element to the riding-details div
+        ridingDetails.appendChild(newParagraph);
+    });
+});
+
+/*document.addEventListener("DOMContentLoaded", function () {
     // Select the button with ID "yui_3_17_2_1_1738968586205_96"
     const button = document.getElementById("yui_3_17_2_1_1738968586205_96");
 
@@ -18,7 +43,7 @@ function updateDiv() {
         testDiv.appendChild(p);
     }
 }
-
+*/
 /*
 // Function to geocode an address using OpenStreetMap Nominatim
 async function geocodeAddress(address, city, province, postalCode) {
