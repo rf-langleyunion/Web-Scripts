@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Select the button with class "submit-test"
-    const button = document.querySelector(".sqs-system-button");
+    // Select the button with ID "yui_3_17_2_1_1738968586205_96"
+    const button = document.getElementById("yui_3_17_2_1_1738968586205_96");
 
     if (button) {
         button.addEventListener("click", function () {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function updateDiv() {
-    const testDiv = document.getElementById("test");
+    const testDiv = document.getElementById("riding-details");
     
     if (testDiv) {
         const p = document.createElement("p");
