@@ -1,3 +1,24 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the button element by its class
+    const submitButton = document.querySelector('.form-submit-button');
+
+    // Add a click event listener to the button
+    submitButton.addEventListener('click', function() {
+        // Get the div element by its ID
+        const testDiv = document.getElementById('test');
+
+        // Create a new <p> element
+        const newParagraph = document.createElement('p');
+
+        // Set the text content of the <p> element
+        newParagraph.textContent = 'Works!';
+
+        // Append the <p> element to the div
+        testDiv.appendChild(newParagraph);
+    });
+});
+
+
 // Function to geocode an address using OpenStreetMap Nominatim
 async function geocodeAddress(address, city, province, postalCode) {
     // Construct the query string
