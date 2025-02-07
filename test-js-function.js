@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Select the button with class "submit-test"
-    const button = document.querySelector(".button");
+    const button = document.querySelector(".sqs-system-button");
 
     if (button) {
         button.addEventListener("click", function () {
