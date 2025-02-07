@@ -14,7 +14,7 @@ function updateDiv() {
     
     if (testDiv) {
         const p = document.createElement("p");
-        p.textContent = "Works!";
+        p.textContent = "It works!";
         testDiv.appendChild(p);
     }
 }
