@@ -1,22 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the button element by its class
-    const submitButton = document.querySelector('.submit-test');
+document.addEventListener("DOMContentLoaded", function () {
+    // Select the button with class "submit-test"
+    const button = document.querySelector(".submit-test");
 
-    // Add a click event listener to the button
-    submitButton.addEventListener('click', function() {
-        // Get the div element by its ID
-        const testDiv = document.getElementById('test');
-
-        // Create a new <p> element
-        const newParagraph = document.createElement('p');
-
-        // Set the text content of the <p> element
-        newParagraph.textContent = 'Works!';
-
-        // Append the <p> element to the div
-        testDiv.appendChild(newParagraph);
-    });
+    if (button) {
+        button.addEventListener("click", function () {
+            updateDiv();
+        });
+    }
 });
+
+function updateDiv() {
+    const testDiv = document.getElementById("test");
+    
+    if (testDiv) {
+        const p = document.createElement("p");
+        p.textContent = "Works!";
+        testDiv.appendChild(p);
+    }
+}
 
 /*
 // Function to geocode an address using OpenStreetMap Nominatim
