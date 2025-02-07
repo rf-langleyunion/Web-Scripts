@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get the button element by its class
-    const submitButton = document.querySelector('.form-submit-button');
+    const submitButton = document.querySelector('.submit-test');
 
     // Add a click event listener to the button
     submitButton.addEventListener('click', function() {
