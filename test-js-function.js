@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
+/*
 // Function to geocode an address using OpenStreetMap Nominatim
 async function geocodeAddress(address, city, province, postalCode) {
     // Construct the query string
@@ -84,3 +84,4 @@ async function handleButtonClick() {
         resultDiv.innerHTML = `The following residence has been registered with the CRA:<br>${address}<br>${city}, ${province} ${postal} <br>Geocode: Unable to find coordinates.`;
     }
 }
+*/
