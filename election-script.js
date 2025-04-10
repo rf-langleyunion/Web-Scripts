@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         #riding-table > h3 {
-            color: #f0f0f0;
+            color: #254c1e;
             font-size: 22px;
             margin-bottom: 20px;
             padding-bottom: 10px;
@@ -175,22 +175,22 @@ document.addEventListener("DOMContentLoaded", function() {
         #riding-table .loading {
             padding: 20px;
             text-align: center;
-            color: #f0f0f0;
+            color: #254c1e;
         }
         
         #riding-table .error {
-            color: #000000;
+            color: #f0f0f0;
             padding: 15px;
-            background: #b0ecac;
+            background: #254c1e;
             border-radius: 4px;
             text-align: center;
             line-height: 1.5;
         }
         
         #riding-table .no-data {
-            color: #f22248;
+            color: #f0f0f0;
             padding: 15px;
-            background: #000000;
+            background: #254c1e;
             border-radius: 4px;
             text-align: center;
             font-weight: bold;
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         .candidates-table th {
-            background-color: #333;
+            background-color: #254c1e;
             color: #fff;
             text-align: left;
             padding: 12px;
