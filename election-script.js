@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Show loading state
         const ridingTableDiv = document.getElementById('riding-table');
-        ridingTableDiv.innerHTML = '<div class="loading">Loading... En cours...</div>';
+        ridingTableDiv.innerHTML = '<div class="loading">Loading...</div>';
 
         try {
             // First API call to get district name
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Add district heading
             const districtHeading = document.createElement('h3');
-            districtHeading.textContent = `${districtName}`;
+            districtHeading.textContent = `Your riding is ${districtName}`;
             ridingTableDiv.appendChild(districtHeading);
 
             // Display the data as a table
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function displayDataAsTable(jsonData, container) {
         // Check if data is valid
         if (!jsonData || !Array.isArray(jsonData) || jsonData.length === 0) {
-            container.innerHTML += '<p class="no-data">No candidate data found for this riding. Aucun candidat.e trouvé.e dans votre circonscription.</p>';
+            container.innerHTML += '<p class="no-data">Sorry, but we are only providing data for ridings that are in Langley. Please use the tools from Elections Canada to find more information about your riding.</p>';
             return;
         }
 
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const validData = jsonData.filter(candidate => candidate);
 
         if (validData.length === 0) {
-            container.innerHTML += '<p class="no-data">No valid candidate data available. Aucune donnée valide disponible.</p>';
+            container.innerHTML += '<p class="no-data">No valid candidate data available.</p>';
             return;
         }
 
