@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const headerRow = document.createElement('tr');
         
         // Add column headers
-        const headers = ['Candidat.e', 'Party-Parti', 'D1', 'D2', 'D3', 'D4', 'D5'];
+        const headers = ['Candidate', 'Party', 'Phone Number', 'Website'];
         headers.forEach(function(headerText) {
             const th = document.createElement('th');
             th.textContent = headerText;
@@ -104,23 +104,38 @@ document.addEventListener("DOMContentLoaded", function() {
         validData.forEach(function(candidate) {
             const row = document.createElement('tr');
             
+            // Set row color based on party
+            const partyColor = getPartyColor(candidate.Party.trim());
+            row.style.backgroundColor = partyColor;
+            
             // Candidate Name
             const nameCell = document.createElement('td');
-            const incumbentText = candidate['Incumbent'] ? ' (Incumbent-En exercice)' : '';
-            nameCell.textContent = (candidate['Candidat.e'] || '') + incumbentText;
+            nameCell.textContent = candidate.Candidate || '';
             row.appendChild(nameCell);
             
             // Party
             const partyCell = document.createElement('td');
-            partyCell.textContent = candidate['Party - Parti'] || '';
+            partyCell.textContent = candidate.Party.trim() || '';
             row.appendChild(partyCell);
             
-            // Map D1-D5 to Demand.e 1-5
-            for (let i = 1; i <= 5; i++) {
-                const qCell = document.createElement('td');
-                qCell.textContent = candidate[`${i}`] || '';
-                row.appendChild(qCell);
+            // Phone Number
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = candidate['Office Phone Number'] || 'N/A';
+            row.appendChild(phoneCell);
+            
+            // Website
+            const websiteCell = document.createElement('td');
+            if (candidate.Website) {
+                const websiteLink = document.createElement('a');
+                websiteLink.href = candidate.Website;
+                websiteLink.textContent = 'Visit Website';
+                websiteLink.target = '_blank';
+                websiteLink.rel = 'noopener noreferrer';
+                websiteCell.appendChild(websiteLink);
+            } else {
+                websiteCell.textContent = 'N/A';
             }
+            row.appendChild(websiteCell);
             
             tbody.appendChild(row);
         });
@@ -129,7 +144,19 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(table);
     }
 
-    // Updated CSS with black font for table rows
+    function getPartyColor(party) {
+        const partyColors = {
+            'Conservative Party of Canada': '#B3C7E6',
+            'Liberal Party of Canada': '#F5B0AC',
+            'New Democratic Party': '#F9C89B',
+            'Green Party of Canada': '#A6D9A3',
+            'People\'s Party of Canada': '#C1B2D7'
+        };
+        
+        return partyColors[party] || '#FFFFFF'; // Default to white if party not found
+    }
+
+    // Updated CSS
     const style = document.createElement('style');
     style.textContent = `
         #riding-table {
@@ -173,13 +200,12 @@ document.addEventListener("DOMContentLoaded", function() {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 25px;
-            background: #b0ecac;
             color: #000000;
         }
         
         .candidates-table th {
-            background-color: #8fd988;
-            color: #000;
+            background-color: #333;
+            color: #fff;
             text-align: left;
             padding: 12px;
             border: 1px solid #e1e1e1;
@@ -189,23 +215,26 @@ document.addEventListener("DOMContentLoaded", function() {
         .candidates-table td {
             padding: 10px 12px;
             border: 1px solid #e1e1e1;
-            vertical-align: top;
-            color: #000000;
-        }
-        
-        .candidates-table tr:nth-child(even) {
-            background-color: #c5f0c0;
+            vertical-align: middle;
         }
         
         .candidates-table tr:hover {
-            background-color: #a0e69a;
+            opacity: 0.9;
+        }
+        
+        .candidates-table a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .candidates-table a:hover {
+            text-decoration: underline;
         }
         
         @media (max-width: 768px) {
             .candidates-table {
                 display: block;
                 overflow-x: auto;
-                white-space: nowrap;
             }
             
             #riding-table > h3 {
