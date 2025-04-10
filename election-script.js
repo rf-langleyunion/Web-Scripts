@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         .candidates-table th {
             background-color: #254c1e;
-            color: #fff;
+            color: #fff !important;
             text-align: left;
             padding: 12px;
             border: 1px solid #e1e1e1;
