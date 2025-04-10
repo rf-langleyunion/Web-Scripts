@@ -20,15 +20,23 @@ document.addEventListener("DOMContentLoaded", function() {
             // First API call to get district name
             const workerUrl = `https://hidden-sea-55ae.rainer-cb8.workers.dev/${postalCode}`;
             const response = await fetch(workerUrl);
-            if (!response.ok) throw new Error("Failed to fetch district data");
             
-            const districtName = await response.text();
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Failed to fetch district data");
+            }
+            
+            const data = await response.json();
+            const districtName = data.district;
             console.log("District Name:", districtName);
 
             // Second API call to Google Script
             const googleScriptUrl = `https://script.google.com/macros/s/AKfycbyiyBXWP2XL4wDDNLGQinUOAcYATnUIhHH0RJY_Xw-7i4OULsINC80zch1dR1ZT0ole/exec?search=${encodeURIComponent(districtName)}`;
             const apiResponse = await fetch(googleScriptUrl);
-            if (!apiResponse.ok) throw new Error("Failed to fetch riding data");
+            
+            if (!apiResponse.ok) {
+                throw new Error("Failed to fetch riding data");
+            }
             
             const jsonData = await apiResponse.json();
             console.log("API Response Data:", jsonData);
@@ -46,7 +54,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         } catch (error) {
             console.error("Error:", error);
-            ridingTableDiv.innerHTML = '<p class="error">Error, please try again later. Erreur, veuillez recommencer plus tard.</p>';
+            ridingTableDiv.innerHTML = `
+                <p class="error">
+                    ${error.message || 'Error, please try again later.'}<br>
+                    ${error.message ? 'Please try again later.' : ''}
+                    ${error.message ? 'Erreur, veuillez recommencer plus tard.' : ''}
+                </p>`;
         }
     });
 
@@ -54,6 +67,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // Check if data is valid
         if (!jsonData || !Array.isArray(jsonData) || jsonData.length === 0) {
             container.innerHTML += '<p class="no-data">No candidate data found for this riding. Aucun candidat.e trouvé.e dans votre circonscription.</p>';
+            return;
+        }
+
+        // Filter out any null/undefined entries
+        const validData = jsonData.filter(candidate => candidate);
+
+        if (validData.length === 0) {
+            container.innerHTML += '<p class="no-data">No valid candidate data available. Aucune donnée valide disponible.</p>';
             return;
         }
 
@@ -80,26 +101,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const tbody = document.createElement('tbody');
         
         // Add each candidate as a row
-        jsonData.forEach(function(candidate) {
-            if (!candidate) return;
-            
+        validData.forEach(function(candidate) {
             const row = document.createElement('tr');
             
             // Candidate Name
             const nameCell = document.createElement('td');
-            var textContent = candidate['Incumbent'] ? ' (Incumbent-En exercice)' : '';
-            nameCell.textContent = candidate['Candidat.e'] +  textContent || '';
+            const incumbentText = candidate['Incumbent'] ? ' (Incumbent-En exercice)' : '';
+            nameCell.textContent = (candidate['Candidat.e'] || '') + incumbentText;
             row.appendChild(nameCell);
             
             // Party
             const partyCell = document.createElement('td');
             partyCell.textContent = candidate['Party - Parti'] || '';
             row.appendChild(partyCell);
-            
-            // // Incumbent (Yes/No)
-            // const incumbentCell = document.createElement('td');
-            // incumbentCell.textContent = candidate['Incumbent'] ? 'Yes' : 'No';
-            // row.appendChild(incumbentCell);
             
             // Map D1-D5 to Demand.e 1-5
             for (let i = 1; i <= 5; i++) {
@@ -120,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function() {
     style.textContent = `
         #riding-table {
             margin-top: 20px;
-            // font-family: Arial, sans-serif;
             width: 100%;
         }
         
@@ -144,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
             background: #b0ecac;
             border-radius: 4px;
             text-align: center;
+            line-height: 1.5;
         }
         
         #riding-table .no-data {
@@ -160,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
             border-collapse: collapse;
             margin-bottom: 25px;
             background: #b0ecac;
-            color: #000000; /* Black font for all table text */
+            color: #000000;
         }
         
         .candidates-table th {
@@ -169,13 +183,14 @@ document.addEventListener("DOMContentLoaded", function() {
             text-align: left;
             padding: 12px;
             border: 1px solid #e1e1e1;
+            font-weight: bold;
         }
         
         .candidates-table td {
             padding: 10px 12px;
             border: 1px solid #e1e1e1;
             vertical-align: top;
-            color: #000000; /* Black font for table cells */
+            color: #000000;
         }
         
         .candidates-table tr:nth-child(even) {
@@ -184,6 +199,18 @@ document.addEventListener("DOMContentLoaded", function() {
         
         .candidates-table tr:hover {
             background-color: #a0e69a;
+        }
+        
+        @media (max-width: 768px) {
+            .candidates-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            #riding-table > h3 {
+                font-size: 18px;
+            }
         }
     `;
     document.head.appendChild(style);
